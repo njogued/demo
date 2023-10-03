@@ -40,6 +40,17 @@ const User = sequelize.define("users", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  county: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  constituency: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  ward: {
+    type: DataTypes.STRING,
+  },
 });
 
 sequelize
@@ -50,3 +61,5 @@ sequelize
   .catch((error) => {
     console.log("Error: ", error);
   });
+
+module.exports = User;
