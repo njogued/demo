@@ -2,16 +2,8 @@
 
 const { Sequelize, DataTypes } = require("sequelize");
 const dbConfig = require("../config/db-config");
-
-const sequelize = new Sequelize(
-  dbConfig.DATABASE,
-  dbConfig.USER,
-  dbConfig.PASSWORD,
-  {
-    host: dbConfig.HOST,
-    dialect: dbConfig.DIALECT,
-  }
-);
+const sequelize = require("./db");
+const Query = require("./query");
 
 sequelize
   .authenticate()
@@ -52,6 +44,8 @@ const User = sequelize.define("users", {
     type: DataTypes.STRING,
   },
 });
+
+User.hasMany(Query);
 
 sequelize
   .sync()

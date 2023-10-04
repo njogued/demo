@@ -2,17 +2,8 @@
 
 const { Sequelize, DataTypes } = require("sequelize");
 const dbConfig = require("../config/db-config");
-const db = require(".");
-
-const sequelize = new Sequelize(
-  dbConfig.DATABASE,
-  dbConfig.USER,
-  dbConfig.PASSWORD,
-  {
-    host: dbConfig.HOST,
-    dialect: dbConfig.DIALECT,
-  }
-);
+const sequelize = require("./db");
+const User = require("./user");
 
 sequelize
   .authenticate()
@@ -32,7 +23,17 @@ const Query = sequelize.define("queries", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: "users",
+      key: "id",
+    },
+  },
 });
+
+Query.belongsTo(User, { foreignKey: "userId" });
 
 sequelize
   .sync()
@@ -40,7 +41,7 @@ sequelize
     console.log("Queries table created");
   })
   .catch((error) => {
-    console.error("Failed to create queries table");
+    console.error("Failed to create queries table", error);
   });
 
 module.exports = Query;

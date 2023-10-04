@@ -4,7 +4,8 @@
   "description": "Democracy",
   "main": "index.js",
   "scripts": {
-    "devStart": "nodemon server.js"
+    "devStart": "nodemon server.js",
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +18,9 @@
     "sequelize": "^6.33.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "chai": "^4.3.10",
+    "mocha": "^10.2.0",
+    "nodemon": "^3.0.1",
+    "sequelize-test-helpers": "^1.4.3"
   }
 }
