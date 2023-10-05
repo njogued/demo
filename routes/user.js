@@ -5,8 +5,8 @@ router.get("/", (req, res) => {
   res.send("User page");
 });
 
-router.get("/new", (req, res) => {
-  res.send("Create a new user");
+router.get("/signup", (req, res) => {
+  res.render("signup");
 });
 
 router.route(":/userName").get((req, res) => {
