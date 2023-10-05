@@ -86,7 +86,7 @@ async function getUser(email) {
     });
     return userr;
   } catch (error) {
-    console.log("Error");
+    console.log(error);
   }
 }
 
