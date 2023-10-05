@@ -1,24 +1,30 @@
 // File for user models
 
-const { Sequelize, DataTypes } = require("sequelize");
-const dbConfig = require("../config/db-config");
+const { DataTypes } = require("sequelize");
 const sequelize = require("./db");
-const Query = require("./query");
 
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log("Connection has been established successfully.");
-  })
-  .catch((error) => {
-    console.error("Unable to connect to the database: ", error);
-  });
+// sequelize
+//   .authenticate()
+//   .then(() => {
+//     console.log("Connection has been established successfully.");
+//   })
+//   .catch((error) => {
+//     console.error("Unable to connect to the database: ", error);
+//   });
 
 const User = sequelize.define("users", {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
+  },
+  firstName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  lastName: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   password: {
     type: DataTypes.STRING,
@@ -45,15 +51,13 @@ const User = sequelize.define("users", {
   },
 });
 
-User.hasMany(Query);
-
-sequelize
-  .sync()
-  .then(() => {
-    console.log("User table created");
-  })
-  .catch((error) => {
-    console.log("Error: ", error);
-  });
+// sequelize
+//   .sync()
+//   .then(() => {
+//     console.log("User table created");
+//   })
+//   .catch((error) => {
+//     console.log("Error: ", error);
+//   });
 
 module.exports = User;
