@@ -3,7 +3,9 @@ const User = require("./models/user"); // Assuming the file path is correct
 // Example: Inserting data
 User.create({
   email: "example@email.com",
-  password: "hashedpassword", // Note: In a real application, you should hash passwords before storing them
+  firstName: "Example",
+  lastName: "User",
+  password: "hashedpassword",
   phone_number: "1234567890",
   level: 1,
   county: "Nairobi",

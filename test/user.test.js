@@ -1,9 +1,32 @@
-const chai = require("chai");
+const { expect } = require("chai");
 const { Sequelize } = require("sequelize");
 const { clearDatabase } = require("sequelize-test-helpers");
-const { User } = require("../models/user");
+const User = require("../models/user");
 const assert = require("assert");
 
 describe("test the user model", () => {
-  it("should ensure that user is created", () => {});
+  it("should ensure that user is created", async () => {
+    const user = await User.create({
+      email: "testuser44@email.com",
+      firstName: "Example",
+      lastName: "User",
+      password: "hashedpassword",
+      phone_number: "1234567890",
+      level: 1,
+      county: "Nairobi",
+      constituency: "Kasarani",
+      ward: "Kahawa",
+    });
+    expect(user).to.have.property("id");
+    expect(user.email).to.be.equal("testuser44@email.com");
+  });
+  it("should ensure that a user is deleted", async () => {
+    await User.destroy({
+      where: { email: "testuser44@email.com" },
+    });
+    const deletedUser = await User.findOne({
+      where: { email: "testuser44@email.com" },
+    });
+    assert.strictEqual(deletedUser, null, "User should not exist");
+  });
 });
