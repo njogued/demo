@@ -26,6 +26,14 @@ router.post("/signup", async (req, res) => {
       constituency,
       ward,
     } = req.body;
+    const emailExists = await User.findOne({ where: { email: email } });
+    const userNameExists = await User.findOne({
+      where: { userName: userName },
+    });
+    if (emailExists || userNameExists) {
+      res.status(401).json({ message: "Email or username is already in use" });
+      return;
+    }
     const newUser = await User.create({
       email: email,
       firstName: firstName,
