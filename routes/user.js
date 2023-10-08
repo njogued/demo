@@ -14,30 +14,34 @@ router.get("/signup", (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  const {
-    email,
-    password,
-    phone_number,
-    firstName,
-    lastName,
-    userName,
-    county,
-    constituency,
-    ward,
-  } = req.body;
-  const newUser = await User.create({
-    email: email,
-    firstName: firstName,
-    lastName: lastName,
-    userName: userName,
-    password: password,
-    phone_number: phone_number,
-    level: 1,
-    county: county,
-    constituency: constituency,
-    ward: ward,
-  });
-  res.status(201).json({ user: newUser });
+  try {
+    const {
+      email,
+      password,
+      phone_number,
+      firstName,
+      lastName,
+      userName,
+      county,
+      constituency,
+      ward,
+    } = req.body;
+    const newUser = await User.create({
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      userName: userName,
+      password: password,
+      phone_number: phone_number,
+      level: 1,
+      county: county,
+      constituency: constituency,
+      ward: ward,
+    });
+    res.status(201).json({ user: newUser });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to create user" });
+  }
 });
 
 router.route(":/userName").get((req, res) => {
