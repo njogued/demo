@@ -13,27 +13,31 @@ router.get("/signup", (req, res) => {
   res.render("signup");
 });
 
-router.post("/signup", (req, res) => {
-  const firstName = req.body.firstName;
-  const lastName = req.body.lastName;
-  const email = req.body.email;
-  const password = req.body.password;
-  const phone_number = req.body.phone_number;
-  const county = req.body.county;
-  const constituency = req.body.constituency;
-  const ward = req.body.ward;
-  // User.create({
-  //   email: email,
-  //   firstName: firstName,
-  //   lastName: lastName,
-  //   password: password,
-  //   phone_number: phone_number,
-  //   level: 1,
-  //   county: county,
-  //   constituency: constituency,
-  //   ward: ward,
-  // });
-  console.log(email);
+router.post("/signup", async (req, res) => {
+  const {
+    email,
+    password,
+    phone_number,
+    firstName,
+    lastName,
+    userName,
+    county,
+    constituency,
+    ward,
+  } = req.body;
+  const newUser = await User.create({
+    email: email,
+    firstName: firstName,
+    lastName: lastName,
+    userName: userName,
+    password: password,
+    phone_number: phone_number,
+    level: 1,
+    county: county,
+    constituency: constituency,
+    ward: ward,
+  });
+  res.status(201).json({ user: newUser });
 });
 
 router.route(":/userName").get((req, res) => {
