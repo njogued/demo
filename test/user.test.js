@@ -9,6 +9,7 @@ describe("test the user model", () => {
   it("should ensure that user is created", async () => {
     const user = await User.create({
       email: "example@email.com",
+      userName: "ExampleUser",
       firstName: "Example",
       lastName: "User",
       password: "hashedpassword",
