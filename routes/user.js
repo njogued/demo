@@ -1,5 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const User = require("../models/user");
+
+// Middleware to parse form data sent from fe
+router.use(express.urlencoded({ extended: true }));
 
 router.get("/", (req, res) => {
   res.send("User page");
@@ -15,10 +19,21 @@ router.post("/signup", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   const phone_number = req.body.phone_number;
-  const level = req.body.level;
   const county = req.body.county;
   const constituency = req.body.constituency;
   const ward = req.body.ward;
+  // User.create({
+  //   email: email,
+  //   firstName: firstName,
+  //   lastName: lastName,
+  //   password: password,
+  //   phone_number: phone_number,
+  //   level: 1,
+  //   county: county,
+  //   constituency: constituency,
+  //   ward: ward,
+  // });
+  console.log(email);
 });
 
 router.route(":/userName").get((req, res) => {
