@@ -56,8 +56,45 @@ router.post("/signup", async (req, res) => {
   }
 });
 
+router.get("/login", (req, res) => {
+  res.render("login");
+});
+
+router.post("/login", checkLoginType, (req, res) => {
+  // const { nameOrEmail, password } = req.body;
+  if (req.validUser === true) {
+    res.send("valid user");
+  } else {
+    res.send("Invalid user");
+  }
+});
+
 router.route(":/userName").get((req, res) => {
   res.send(`User with userName: ${req.params.userName}`);
 });
+
+async function checkLoginType(req, res, next) {
+  const { nameOrEmail, password } = req.body;
+  let user;
+  if (nameOrEmail.includes("@")) {
+    user = await User.findOne({ where: { email: nameOrEmail } });
+  } else {
+    user = await User.findOne({ where: { userName: nameOrEmail } });
+  }
+  if (user == null) {
+    return res.status(400).send("Cannot find user");
+  } else {
+    try {
+      if (await bcrypt.compare(password, user.password)) {
+        req.validUser = true;
+      } else {
+        req.validUser = false;
+      }
+      next();
+    } catch (error) {
+      res.status(500).send("Internal error");
+    }
+  }
+}
 
 module.exports = router;
