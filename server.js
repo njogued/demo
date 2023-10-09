@@ -4,6 +4,7 @@ const port = 3000;
 
 // Specify the view engine
 app.set("view engine", "ejs");
+app.use("/static", express.static("public"));
 
 // Function to get the homepage and send response
 // app.get takes two parameters, the path,
