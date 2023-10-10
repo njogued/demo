@@ -2,6 +2,15 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const session = require("express-session");
+
+router.use(
+  session({
+    secret: "secretsessionkey",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
 
 // Middleware to parse form data sent from fe
 router.use(express.urlencoded({ extended: true }));
@@ -63,7 +72,8 @@ router.get("/login", (req, res) => {
 router.post("/login", checkLoginType, (req, res) => {
   // const { nameOrEmail, password } = req.body;
   if (req.validUser === true) {
-    res.send("valid user");
+    console.log(req.session.user);
+    res.send("Logged in");
   } else {
     res.send("Invalid user");
   }
@@ -87,6 +97,7 @@ async function checkLoginType(req, res, next) {
     try {
       if (await bcrypt.compare(password, user.password)) {
         req.validUser = true;
+        req.session.user = user;
       } else {
         req.validUser = false;
       }
