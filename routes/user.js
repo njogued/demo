@@ -72,14 +72,19 @@ router.get("/login", (req, res) => {
 router.post("/login", checkLoginType, (req, res) => {
   // const { nameOrEmail, password } = req.body;
   if (req.validUser === true) {
-    console.log(req.session.user);
     res.send("Logged in");
   } else {
     res.send("Invalid user");
   }
 });
 
-router.route(":/userName").get((req, res) => {
+router.route("/:userName").get((req, res) => {
+  if (req.session.user) {
+    if (req.session.user.userName == req.params["userName"]) {
+      res.send("This is your space. Feel free");
+      return;
+    }
+  }
   res.send(`User with userName: ${req.params.userName}`);
 });
 
