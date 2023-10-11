@@ -78,6 +78,14 @@ router.post("/login", checkLoginType, (req, res) => {
   }
 });
 
+router.get("/protected", checkIfAllowed, (req, res) => {
+  if (req.allowedAccess == true) {
+    res.send("You can proceed to this page");
+  } else {
+    res.send("please login first");
+  }
+});
+
 router.route("/:userName").get((req, res) => {
   if (req.session.user) {
     if (req.session.user.userName == req.params["userName"]) {
@@ -86,14 +94,6 @@ router.route("/:userName").get((req, res) => {
     }
   }
   res.send(`User with userName: ${req.params.userName}`);
-});
-
-router.get("/protected_page", checkIfAllowed, (req, res) => {
-  if (req.allowedAccess == true) {
-    res.send("You can proceed to this page");
-  } else {
-    res.send("please login first");
-  }
 });
 
 async function checkLoginType(req, res, next) {
@@ -121,7 +121,7 @@ async function checkLoginType(req, res, next) {
   }
 }
 
-async function checkIfAllowed(req, res, next) {
+function checkIfAllowed(req, res, next) {
   if (req.session.user) {
     req.allowedAccess = true;
   } else {
