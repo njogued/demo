@@ -26,9 +26,13 @@ router.route("/:id").get(async (req, res) => {
   query = await Query.findOne({ where: { id: req.params["id"] } });
   if (query) {
     if (req.session.user) {
-      res.send("You are logged in and can view all details on the query");
+      if (req.session.user.id == query.userId) {
+        res.status(201).json({ query: query, message: "You can also edit it" });
+        return;
+      }
+      res.status(201).json({ query: query });
     } else {
-      res.send("You can only view the query details but not votes");
+      res.status(201).json({ query: query });
     }
   } else {
     res.send("Query does not exist");
