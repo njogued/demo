@@ -1,6 +1,15 @@
 const express = require("express");
 const app = express();
 const port = 3000;
+const session = require("express-session");
+
+app.use(
+  session({
+    secret: "secretsessionkey",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
 
 // Specify the view engine
 app.set("view engine", "ejs");
@@ -23,5 +32,8 @@ app.get("/", (req, res) => {
 // Define the router file and set the router prefix
 const userRoutes = require("./routes/user");
 app.use("/user", userRoutes);
+
+const queryRoutes = require("./routes/query");
+app.use("/query", queryRoutes);
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));

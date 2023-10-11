@@ -2,15 +2,6 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
-const session = require("express-session");
-
-router.use(
-  session({
-    secret: "secretsessionkey",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
 
 // Middleware to parse form data sent from fe
 router.use(express.urlencoded({ extended: true }));
