@@ -88,6 +88,14 @@ router.route("/:userName").get((req, res) => {
   res.send(`User with userName: ${req.params.userName}`);
 });
 
+router.get("/protected_page", checkIfAllowed, (req, res) => {
+  if (req.allowedAccess == true) {
+    res.send("You can proceed to this page");
+  } else {
+    res.send("please login first");
+  }
+});
+
 async function checkLoginType(req, res, next) {
   const { nameOrEmail, password } = req.body;
   let user;
@@ -111,6 +119,15 @@ async function checkLoginType(req, res, next) {
       res.status(500).send("Internal error");
     }
   }
+}
+
+async function checkIfAllowed(req, res, next) {
+  if (req.session.user) {
+    req.allowedAccess = true;
+  } else {
+    req.allowedAccess = false;
+  }
+  next();
 }
 
 module.exports = router;
