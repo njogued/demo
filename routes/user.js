@@ -69,6 +69,12 @@ router.post("/login", checkLoginType, (req, res) => {
   }
 });
 
+router.get("/logout", (req, res) => {
+  req.session.destroy(() => {
+    res.status(200).json({ message: "Logged out" });
+  });
+});
+
 router.get("/protected", checkIfAllowed, (req, res) => {
   if (req.allowedAccess == true) {
     res.send("You can proceed to this page");
