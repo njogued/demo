@@ -2,9 +2,12 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("./db");
 
 const Vote = sequelize.define("votes", {
-  voteFor: {
+  voteType: {
     type: DataTypes.INTEGER,
     allowNull: false,
+  },
+  voteTitle: {
+    type: DataTypes.STRING,
   },
   voteBody: {
     type: DataTypes.STRING,

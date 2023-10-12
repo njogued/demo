@@ -16,7 +16,7 @@ const Query = sequelize.define("queries", {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: "users", // This should be the actual table name, not the model name
+      model: "users",
       key: "id",
     },
   },
