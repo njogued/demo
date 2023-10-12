@@ -5,8 +5,12 @@ const Review = sequelize.define("reviews", {
   reviewBody: {
     type: DataTypes.STRING,
   },
-  voteType: {
+  reviewType: {
     type: DataTypes.INTEGER,
+  },
+  reviewerId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
   },
   voteId: {
     type: DataTypes.INTEGER,
