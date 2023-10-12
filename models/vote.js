@@ -13,7 +13,7 @@ const Vote = sequelize.define("votes", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  voterID: {
+  voterId: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
