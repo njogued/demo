@@ -17,6 +17,10 @@ const Vote = sequelize.define("votes", {
   queryId: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: "queries",
+      key: "id",
+    },
   },
 });
 
