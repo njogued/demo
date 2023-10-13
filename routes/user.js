@@ -7,7 +7,11 @@ const bcrypt = require("bcrypt");
 router.use(express.urlencoded({ extended: true }));
 
 router.get("/", (req, res) => {
-  res.send("User page");
+  if (req.session.user) {
+    res.status(200).json({ user: req.session.user });
+  } else {
+    res.status(200).json({ message: "Log in to access this page" });
+  }
 });
 
 router.get("/signup", (req, res) => {
