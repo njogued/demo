@@ -36,4 +36,7 @@ app.use("/user", userRoutes);
 const queryRoutes = require("./routes/query");
 app.use("/query", queryRoutes);
 
+const voteRoutes = require("./routes/vote");
+app.use("/vote", voteRoutes);
+
 app.listen(port, () => console.log(`App listening on port ${port}!`));
